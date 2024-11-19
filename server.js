@@ -37,13 +37,13 @@ app.use("/api/v1/coworkingspaces", coworkingspaces);
 app.use("/api/v1/auth", auth);
 app.use("/api/v1/bookings", bookings);
 
-const PORT = process.env.PORT || 5001;
+const PORT = process.env.PORT || 5000;
 const server = app.listen(
   PORT,
   console.log(
     "Server running in",
     process.env.NODE_ENV,
-    "on http://localhost:" + PORT
+    "on "+ process.env.HOST + ":" + PORT
   )
 );
 
@@ -57,7 +57,7 @@ const swaggerOptions={
     },
     servers: [
       {
-        url: 'http://localhost:5000/api/v1'
+        url: process.env.HOST + ":" + PORT + "/api/v1"
       }
     ],
   },

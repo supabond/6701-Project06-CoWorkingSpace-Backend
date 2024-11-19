@@ -74,7 +74,11 @@ exports.createCoworkingspace = async (req, res, next) => {
     const coworkingspace = await Coworkingspace.create(req.body);
     res.status(201).json({ success: true, data: coworkingspace });
   } catch (err) {
-    res.status(400).json({ success: false, message: err });
+    if( err.code==11000){
+      res.status(400).json({ success: false, message: { message: "Co-working space's name already exists" } });
+    }else {
+      res.status(400).json({ success: false, message: err });
+    }
   }
 };
 
@@ -92,7 +96,11 @@ exports.updateCoworkingspace = async (req, res, next) => {
     }
     res.status(200).json({ success: true, data: coworkingspace });
   } catch (error) {
-    res.status(400).json({ success: false });
+    if( error.code==11000){
+      res.status(400).json({ success: false, message: { message: "Co-working space's name already exists" } });
+    }else {
+      res.status(400).json({ success: false, message: error });
+    }
   }
 };
 
